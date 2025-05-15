@@ -8,7 +8,7 @@
     --transition-speed: 0.3s;
 }
 
-/* Estilos generales */
+/* Base */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     transition: background-color var(--transition-speed), color var(--transition-speed);
@@ -39,7 +39,7 @@ body {
     border-color: #4d4d4d;
 }
 
-/* Efectos hover para tarjetas de servicios */
+/* Cards */
 .service-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: none;
@@ -48,12 +48,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.service-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
 .service-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Animaciones */
+/* Fx */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -63,12 +69,12 @@ body {
     animation: fadeIn 1s ease-in;
 }
 
-/* Estilos para el modo oscuro */
+/* Dark mode */
 .dark-mode-toggle {
     cursor: pointer;
 }
 
-/* Galería de imágenes */
+/* Gallery */
 .gallery-img {
     cursor: pointer;
     transition: transform 0.3s ease;

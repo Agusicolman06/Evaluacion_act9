@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="light-mode">
-    <!-- Barra de navegación -->
+    <!-- Menu -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -44,7 +44,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Cabecera -->
     <section class="bg-primary text-white py-5">
         <div class="container text-center">
             <h1 class="display-4">Contáctanos</h1>
@@ -52,7 +52,7 @@
         </div>
     </section>
 
-    <!-- Formulario de contacto -->
+    <!-- Form -->
     <section class="container my-5">
         <div class="row">
             <div class="col-lg-6 fade-in">
@@ -112,18 +112,17 @@
                             <h5><i class="fas fa-envelope text-primary me-2"></i> Email</h5>
                             <p>info@studio4k.com</p>
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-0">
                             <h5><i class="fas fa-clock text-primary me-2"></i> Horario de atención</h5>
-                            <p>Lunes a Viernes: 9:00 - 18:00<br>Sábados: 10:00 - 14:00</p>
+                            <p class="mb-0">Lunes a Viernes: 9:00 - 18:00<br>Sábados: 10:00 - 14:00</p>
                         </div>
-                        <div id="map" style="height: 250px; width: 100%;" class="rounded"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Pie de pagina -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
@@ -150,25 +149,8 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JS y dependencias -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- JS personalizado -->
     <script src="js/main.js"></script>
-    <!-- API de Google Maps -->
-    <script>
-        function initMap() {
-            const location = { lat: -34.5236, lng: -58.4758 }; // Coordenadas de Vicente López
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
-                center: location,
-            });
-            new google.maps.Marker({
-                position: location,
-                map: map,
-                title: "Studio4K",
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap" async defer></script>
+
 </body>
 </html>

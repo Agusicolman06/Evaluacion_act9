@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Modo claro/oscuro
+    // Tema
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
     
-    // Cargar preferencia del usuario
+    // Cargar config
     if (localStorage.getItem('darkMode') === 'enabled') {
         body.classList.add('dark-mode');
         darkModeToggle.checked = true;
     }
     
-    // Escuchar cambios en el toggle
+    // Toggle tema
     darkModeToggle.addEventListener('change', function() {
         if (this.checked) {
             body.classList.add('dark-mode');
@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Inicializar tooltips de Bootstrap
+    // Init tooltips
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
     
-    // Efectos de scroll
+    // Scroll fx
     window.addEventListener('scroll', function() {
         const elements = document.querySelectorAll('.fade-in');
         
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Galería de imágenes (para portfolio.html)
+    // Lightbox
     if (document.querySelector('.gallery-img')) {
         const images = document.querySelectorAll('.gallery-img');
         const lightbox = document.createElement('div');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Validación de formulario (para contacto.html)
+    // Form handler
     if (document.getElementById('contactForm')) {
         const contactForm = document.getElementById('contactForm');
         
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const mensaje = document.getElementById('mensaje');
             let isValid = true;
             
-            // Validar nombre
+            // Nombre
             if (nombre.value.trim() === '') {
                 nombre.classList.add('is-invalid');
                 isValid = false;
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 nombre.classList.remove('is-invalid');
             }
             
-            // Validar email
+            // Email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email.value)) {
                 email.classList.add('is-invalid');
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 email.classList.remove('is-invalid');
             }
             
-            // Validar mensaje
+            // Mensaje
             if (mensaje.value.trim() === '') {
                 mensaje.classList.add('is-invalid');
                 isValid = false;
@@ -110,25 +110,45 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             if (isValid) {
-                // Aquí iría la lógica para enviar el formulario con AJAX
-                alert('Formulario enviado correctamente. Nos pondremos en contacto pronto.');
-                contactForm.reset();
+                const formData = new FormData(contactForm);
+                const formResponse = document.getElementById('formResponse');
+                
+                // Loading
+                formResponse.innerHTML = '<div class="alert alert-info">Enviando mensaje...</div>';
+                
+                fetch('php/contacto.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        formResponse.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+                        contactForm.reset();
+                    } else {
+                        formResponse.innerHTML = `<div class="alert alert-danger">${data.message}</div>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    formResponse.innerHTML = '<div class="alert alert-danger">Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.</div>';
+                });
             } else {
-                alert('Por favor, complete todos los campos correctamente.');
+                document.getElementById('formResponse').innerHTML = '<div class="alert alert-warning">Por favor, complete todos los campos correctamente.</div>';
             }
         });
     }
     
-    // Geolocalización
+    // Geo
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
                 console.log('Ubicación del usuario:', position.coords.latitude, position.coords.longitude);
-                // Aquí podrías usar una API para obtener la ciudad/país
+                // TODO: API geo
             },
             function(error) {
                 console.error('Error al obtener la ubicación:', error);
-                // Fallback con IP-based
+                // IP fallback
                 fetch('https://ipapi.co/json/')
                     .then(response => response.json())
                     .then(data => {
